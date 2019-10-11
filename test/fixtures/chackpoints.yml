@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parent: one
+  parent_type: Parent
+  Title: MyString
+  Description: MyString
+  place: one
+  index: 1
+
+two:
+  parent: two
+  parent_type: Parent
+  Title: MyString
+  Description: MyString
+  place: two
+  index: 1

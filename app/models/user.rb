@@ -9,6 +9,9 @@ class User < ApplicationRecord
            foreign_key: :resource_owner_id,
            dependent: :delete_all
 
+  has_many :travel_plans, dependent: :destroy
+  has_many :places
+
   class << self
     def authenticate(email, password)
       user = User.find_for_authentication(email: email)

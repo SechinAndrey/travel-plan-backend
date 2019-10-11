@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_08_095845) do
+ActiveRecord::Schema.define(version: 2019_10_11_055034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "checkpoints", force: :cascade do |t|
+    t.string "parent_type", null: false
+    t.bigint "parent_id", null: false
+    t.string "title", null: false
+    t.string "description"
+    t.bigint "place_id"
+    t.integer "index"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_type", "parent_id"], name: "index_checkpoints_on_parent_type_and_parent_id"
+    t.index ["place_id"], name: "index_checkpoints_on_place_id"
+  end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
     t.bigint "resource_owner_id"
@@ -31,6 +44,29 @@ ActiveRecord::Schema.define(version: 2019_10_08_095845) do
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
   end
 
+  create_table "places", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description"
+    t.bigint "user_id", null: false
+    t.string "lat"
+    t.string "lng"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_places_on_user_id"
+  end
+
+  create_table "travel_plans", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "visibility", default: "private", null: false
+    t.decimal "price"
+    t.string "curency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_travel_plans_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
@@ -38,5 +74,8 @@ ActiveRecord::Schema.define(version: 2019_10_08_095845) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "checkpoints", "places"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
+  add_foreign_key "places", "users"
+  add_foreign_key "travel_plans", "users"
 end
