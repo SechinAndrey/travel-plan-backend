@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_11_055034) do
+ActiveRecord::Schema.define(version: 2019_10_15_070447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "holder_type", null: false
+    t.bigint "holder_id", null: false
+    t.string "file"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["holder_type", "holder_id"], name: "index_attachments_on_holder_type_and_holder_id"
+  end
 
   create_table "checkpoints", force: :cascade do |t|
     t.string "parent_type", null: false

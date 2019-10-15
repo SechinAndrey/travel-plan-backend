@@ -50,3 +50,6 @@ gem 'devise'
 
 # prints Ruby objects in full color exposing their internal structure with proper indentation
 gem 'awesome_print'
+
+# This gem provides a simple and extremely flexible way to upload files from Ruby applications.
+gem 'carrierwave', '~> 2.0'
