@@ -52,4 +52,4 @@ gem 'devise'
 gem 'awesome_print'
 
 # This gem provides a simple and extremely flexible way to upload files from Ruby applications.
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
